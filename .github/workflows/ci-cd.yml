@@ -6,7 +6,7 @@ on:
 
 jobs:
   build:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout código
         uses: actions/checkout@v4
@@ -18,7 +18,7 @@ jobs:
 
   sast-segremp:
     needs: build
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout código
         uses: actions/checkout@v4
@@ -30,7 +30,7 @@ jobs:
 
   test:
     needs: sast-segremp
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     steps:
       - name: Teste simulado
         run: |
@@ -39,7 +39,7 @@ jobs:
 
   dast-scan:
     needs: test
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     steps:
       - name: DAST simulado
         run: |
@@ -48,7 +48,7 @@ jobs:
 
   deploy:
     needs: dast-scan
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     steps:
       - name: Deploy simulado
         run: |
