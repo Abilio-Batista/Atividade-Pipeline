@@ -6,29 +6,50 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     steps:
-      - name: Checkout código
+        name: Checkout código
         uses: actions/checkout@v4
-      - name: Build simulado
-        run: |
-          echo "🔧 Construindo projeto..."
+        name: Build simulado
+        run: 
+          echo "Construindo projeto"
           ls -la
 
-  test:
+
+  sast-segremp:
     needs: build
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     steps:
-      - name: Teste simulado
-        run: |
-          echo "🧪 Rodando testes fictícios..."
-          echo "✅ Tudo certo!"
+        name: SAST simulado
+        uses: actions/checkout@v4
+        run:
+          echo "Rodando análise de segurança estática (SAST)"
+          echo "Nenhuma vulnerabilidade crítica encontrada!"
+
+
+  test:
+    needs:  sast-segremp
+    runs-on: windows-latest
+    steps:
+        name: Teste simulado
+        run: 
+          echo "Rodando testes"
+          echo "Tudo certo!"
+
+  dast-scan:
+    needs:  test
+    runs-on: windows-latest
+    steps:
+        name: DAST simulado
+        run: 
+          echo "Rodando análise DAST"
+          echo "Nenhuma vunerabilidade!"
 
   deploy:
-    needs: test
-    runs-on: ubuntu-latest
+    needs: dast-scan
+    runs-on: windows-latest
     steps:
-      - name: Deploy simulado
-        run: |
-          echo "🚀 Fazendo deploy..."
+        name: Deploy simulado
+        run: 
+          echo "Fazendo deploy"
           echo "Deploy completo!"
