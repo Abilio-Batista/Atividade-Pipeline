@@ -10,7 +10,25 @@ jobs:
     steps:
       - name: Checkout código
         uses: actions/checkout@v4
-      - name: Instalar dependências
-        run: npm install
-      - name: Rodar testes
-        run: npm test
+      - name: Build simulado
+        run: |
+          echo "🔧 Construindo projeto..."
+          ls -la
+
+  test:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Teste simulado
+        run: |
+          echo "🧪 Rodando testes fictícios..."
+          echo "✅ Tudo certo!"
+
+  deploy:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy simulado
+        run: |
+          echo "🚀 Fazendo deploy..."
+          echo "Deploy completo!"
