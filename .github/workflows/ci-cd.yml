@@ -8,47 +8,49 @@ jobs:
   build:
     runs-on: windows-latest
     steps:
+      - name: Checkout código
         uses: actions/checkout@v4
-        name: Build simulado
-        run: 
+
+      - name: Build simulado
+        run: |
           echo "Construindo projeto"
           ls -la
-
 
   sast-segremp:
     needs: build
     runs-on: windows-latest
     steps:
-        name: SAST simulado
+      - name: Checkout código
         uses: actions/checkout@v4
-        run:
+
+      - name: SAST simulado
+        run: |
           echo "Rodando análise de segurança estática (SAST)"
           echo "Nenhuma vulnerabilidade crítica encontrada!"
 
-
   test:
-    needs:  sast-segremp
+    needs: sast-segremp
     runs-on: windows-latest
     steps:
-        name: Teste simulado
-        run: 
+      - name: Teste simulado
+        run: |
           echo "Rodando testes"
           echo "Tudo certo!"
 
   dast-scan:
-    needs:  test
+    needs: test
     runs-on: windows-latest
     steps:
-        name: DAST simulado
-        run: 
+      - name: DAST simulado
+        run: |
           echo "Rodando análise DAST"
-          echo "Nenhuma vunerabilidade!"
+          echo "Nenhuma vulnerabilidade encontrada!"
 
   deploy:
     needs: dast-scan
     runs-on: windows-latest
     steps:
-        name: Deploy simulado
-        run: 
+      - name: Deploy simulado
+        run: |
           echo "Fazendo deploy"
           echo "Deploy completo!"
